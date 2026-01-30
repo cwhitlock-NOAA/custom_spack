@@ -1,16 +1,27 @@
 include:
+  # remote configuration scope
+  - name: "cew-test"
+    git: https://github.com/cwhitlock-NOAA/custom_spack.git
+    branch: main
+    paths:
+    - config/concretizer.yaml
+    - config/config.yaml
+    - config/include.yaml
+    - config/packages.yaml
+    - config/repos.yaml
+    
+  # site configuration scope
+  - name: "site"
+    path: "$spack/etc/spack/site"
+    prefer_modify: true
+    optional: true    
+
   # user configuration scope
   - name: "user"
     path_override_env_var: SPACK_USER_CONFIG_PATH
     path: "~/.spack"
     optional: true
-    prefer_modify: true
     when: '"SPACK_DISABLE_LOCAL_CONFIG" not in env'
-
-  # site configuration scope
-  - name: "site"
-    path: "$spack/etc/spack/site"
-    optional: true
 
   # system configuration scope
   - name: "system"
@@ -19,11 +30,3 @@ include:
     optional: true
     when: '"SPACK_DISABLE_LOCAL_CONFIG" not in env'
     
-  # remote configuration scope
-  - name: "cew-test"
-    git: https://github.com/spack/spack-configs
-    branch: main
-    when: os == "centos7"
-    paths:
-    - USC/config/config.yaml
-    - USC/config/packages.yaml 

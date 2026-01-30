@@ -18,7 +18,7 @@ repos:
   #  branch:
   #  destination:
   cew:
-    git:
+    git: https://github.com/cwhitlock-NOAA/custom_spack.git
     branch: main
     destination: $SPACK_ROOT/custom_repo
 #package.py files used to be in var/spack/custom_repos/spack_repo/custom
