@@ -1,0 +1,132 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  definitions:
+  - compilers_gcc: [gcc@13.4.0]
+  - packages_builtin:
+    - automake
+    - bacio
+    - cdo
+    - cloc
+    - cmake
+    - esmf
+    - g2
+    - g2tmpl
+    - gdal
+    - geos
+    - git
+    - gnuplot
+    - grace
+    - grib-util
+    - gsl
+    - hdf5
+    - ip
+    - intel-oneapi-compilers@2025.2.0    
+    - jasper
+    - libgeotiff
+    - libpng
+    - libtool
+    - magics
+    - mpich
+    - nasm
+    - nccmp
+    - nco
+    - ncview
+    - netcdf-c
+    - netcdf-fortran
+    - octave
+    - openmpi
+    - pigz
+    - proj
+    - sp
+    - tig
+    - udunits
+    - w3emc
+    - w3nco
+    - wgrib2
+    - zlib
+    - zlib-ng
+  - packages_builtin_nogcc:
+    - arm-forge
+    - autoconf
+    - bats
+    - gh
+    - git-lfs
+    - intel-oneapi-mkl
+    - intel-oneapi-mpi
+    - openjdk
+    - parallel
+  - packages_custom:
+    - fre-bronx@v2.22.3
+    - fre-nctools@2024.05.02
+  packages:
+    arm-forge:
+      variants: +accept-eula
+    cairo:
+      variants: +X
+    gdal:
+      variants: +netcdf
+    gnuplot:
+      variants: +X
+    hdf5:
+      variants: +fortran+hl+szip
+    libtiff:
+      variants: +zlib+jpeg+lzma
+    netcdf-c:
+      variants: +dap
+    pango:
+      variants: +X
+    r:
+      variants: +X
+    all:
+      target: [x86_64]
+      #require: target=x86_64_v2
+      providers:
+        mpi: [mpich, openmpi]
+        zlib-api: [zlib-ng+compat, zlib]
+  specs:
+  - gcc@13.4.0 %gcc@13.4.0
+  - matrix:
+    - [$packages_builtin]
+    - [$%compilers_gcc]
+  - $packages_builtin_nogcc
+  - $packages_custom
+  concretizer:
+    reuse: false
+    unify: when_possible  
+  config:
+    install_tree:
+      projections:
+        all: '{architecture.platform}-{architecture.os}-x86_64/{compiler.name}-{compiler.version}/{name}/{version}-{hash}'
+      root: $spack/opt/spack
+      #root: /app/spack/2025.02
+  repos:
+    custom: $spack/var/spack/custom_repos/spack_repo/custom
+  modules:
+    prefix_inspections:
+      lib64:
+      - LD_LIBRARY_PATH
+      lib:
+      - LD_LIBRARY_PATH
+    default:
+      roots:
+        tcl: $spack/share/spack/modulefiles
+        #tcl: /app/spack/2025.02/modulefiles
+      enable:
+      - tcl
+      tcl:
+        include:
+          - intel-oneapi-compilers
+        exclude_implicits: true
+        hash_length: 0
+        projections:
+          all: '{name}/{version}'
+        all:
+          conflict:
+          - '{name}'
+        intel-oneapi-compilers:
+          template: intel_modulefile.tcl
+        fre-bronx:
+          template: frebronx_modulefile.tcl   

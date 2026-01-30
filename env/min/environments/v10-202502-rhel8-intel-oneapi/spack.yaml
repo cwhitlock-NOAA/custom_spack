@@ -1,0 +1,64 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  definitions:
+  - compilers_intel: [oneapi@2025.2.0]
+  - packages_builtin:
+    - bacio
+    - hdf5
+    - ip
+    - netcdf-c
+    - netcdf-fortran
+    - sp
+    - w3emc
+    - w3nco
+    - zlib
+    - zlib-ng
+  packages:
+    hdf5:
+      variants: +fortran+hl+szip~mpi
+    netcdf-c:
+      variants: +dap~mpi
+    all:
+      target: [x86_64]
+      providers:
+        zlib-api: [zlib-ng+compat, zlib]
+  specs:
+  - matrix:
+    - [$packages_builtin]
+    - [$%compilers_intel]
+  - intel-oneapi-mpi
+  concretizer:
+    reuse: false
+    unify: true
+  config:
+    install_tree:
+      projections:
+        all: '{architecture.platform}-{architecture.os}-x86_64/{compiler.name}-{compiler.version}/{name}/{version}-{hash}'
+      root: $spack/opt/spack
+      #root: /app/spack/2025.02
+  modules:
+    prefix_inspections:
+      lib64:
+      - LD_LIBRARY_PATH
+      lib:
+      - LD_LIBRARY_PATH
+    default:
+      roots:
+        #tcl: $spack/share/spack/modulefiles
+        tcl : $spack/share/spack/modulefiles-oneapi-2025.2.0
+        #tcl: /app/spack/2025.02/modulefiles-oneapi-2025.2.0
+      enable:
+      - tcl
+      tcl:
+        exclude_implicits: true
+        hash_length: 0
+        projections:
+          all: '{name}/{version}'
+        all:
+          conflict:
+          - '{name}'
+        intel-oneapi-compilers:
+          template: intel_modulefile.tcl

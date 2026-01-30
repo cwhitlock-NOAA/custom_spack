@@ -1,0 +1,24 @@
+# -------------------------------------------------------------------------
+# This is GFDL-specfic spack repository configuration. It includes the
+# builtin spack package repository, custom spack repository, and modulefile
+# template spack repository.
+#
+# Users can override these settings by editing the following files.
+#
+# Per-user settings (overrides default and site settings):
+#   ~/.spack/repos.yaml
+# -------------------------------------------------------------------------
+repos:
+  builtin:
+    git: https://github.com/spack/spack-packages.git
+    branch: releases/v2025.07
+    destination: $SPACK_ROOT/package_repos
+  #custom:
+  #  git:
+  #  branch:
+  #  destination:
+  cew:
+    git:
+    branch: main
+    destination: $SPACK_ROOT/custom_repo
+#package.py files used to be in var/spack/custom_repos/spack_repo/custom

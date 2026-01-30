@@ -1,0 +1,39 @@
+type=2
+serial_number=17396
+hostname=warehouse.gfdl.noaa.gov
+serverport=4241
+features=ddt
+hash2=e5fbf9bc0c269daee9d0005361984a04aacf5ad7
+#
+# A license is required to use package 'arm-forge'.
+#
+# * If your system is already properly configured for such a license, save this
+#   file UNCHANGED. The system may be configured if:
+#
+#    - A license file is installed in a default location.
+#    - One of the following environment variable(s) is set for you, possibly via
+#      a module file:
+#
+#	ALLINEA_LICENSE_DIR
+#	ALLINEA_LICENCE_DIR
+#	ALLINEA_LICENSE_FILE
+#	ALLINEA_LICENCE_FILE
+#
+# * Otherwise, depending on the license you have, enter AT THE BEGINNING of
+#   this file:
+#
+#   - the contents of your license file, or
+#   - the address(es) of your license server.
+#
+#   After installation, the following symlink(s) will be added to point to
+#   this Spack-global file (relative to the installation prefix).
+#
+#	licences/Licence
+#
+# * For further information on licensing, see:
+#
+#	https://developer.arm.com/documentation/101169/latest/Use-Arm-Licence-Server
+#
+# Recap:
+# - You may not need to modify this file at all.
+# - Otherwise, enter your license or server address AT THE BEGINNING.

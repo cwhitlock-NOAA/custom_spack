@@ -1,0 +1,58 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  definitions:
+  - compilers_gcc: [gcc@14.3.0]
+  - packages_builtin:
+    - r@4.5.1
+  - packages_custom:
+    - rstudio@2024.09.0
+  packages:
+    r:
+      variants: +X
+    all:
+      #target: [x86_64]
+      require: target=x86_64_v2
+      providers:
+        mpi: [mpich, openmpi]
+        zlib-api: [zlib-ng+compat, zlib]
+  specs:
+  - gcc@14.3.0 %gcc@14.3.0
+  - matrix:
+    - [$packages_builtin]
+    - [$%compilers_gcc]
+  - $packages_custom
+  config:
+    install_tree:
+      projections:
+        all: '{architecture.platform}-{architecture.os}-x86_64/{compiler.name}-{compiler.version}/{name}/{version}-{hash}'
+      root: $spack/opt/spack
+      #root: /app/spack/2025.02
+  repos:
+    custom: $spack/var/spack/custom_repos/spack_repo/custom
+  modules:
+    prefix_inspections:
+      lib64:
+      - LD_LIBRARY_PATH
+      lib:
+      - LD_LIBRARY_PATH
+    default:
+      roots:
+        tcl: $spack/share/spack/modulefiles
+        #tcl: /app/spack/2025.02/modulefiles
+      enable:
+      - tcl
+      tcl:
+        include: ["r", "rstudio"] #only modulefiles for R and rstudio are included
+        exclude: ["gcc"]
+        exclude_implicits: true
+        hash_length: 0
+        projections:
+          all: '{name}/{version}'
+        all:
+          conflict:
+          - '{name}'
+        r:
+          template: r_modulefile.tcl
