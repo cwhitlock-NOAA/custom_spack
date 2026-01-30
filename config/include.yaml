@@ -1,9 +1,9 @@
 include:
   # remote configuration scope
-  - name: "cew-test"
-    git: https://github.com/cwhitlock-NOAA/custom_spack.git
+  # note - this cannot have a name attribute
+  - git: https://github.com/cwhitlock-NOAA/custom_spack.git
     branch: main
-    paths:
+    paths: 
     - config/concretizer.yaml
     - config/config.yaml
     - config/include.yaml

@@ -7,18 +7,14 @@
 #
 # Per-user settings (overrides default and site settings):
 #   ~/.spack/repos.yaml
+#package.py files used to be in var/spack/custom_repos/spack_repo/custom
 # -------------------------------------------------------------------------
 repos:
-  builtin:
-    git: https://github.com/spack/spack-packages.git
-    branch: releases/v2025.07
-    destination: $SPACK_ROOT/package_repos
-  #custom:
-  #  git:
-  #  branch:
-  #  destination:
-  cew:
-    git: https://github.com/cwhitlock-NOAA/custom_spack.git
-    branch: main
-    destination: $SPACK_ROOT/custom_repo
-#package.py files used to be in var/spack/custom_repos/spack_repo/custom
+  - builtin:
+     git: https://github.com/spack/spack-packages.git
+     branch: releases/v2025.07
+     destination: $SPACK_ROOT/package_repos
+  - cew:
+     git: https://github.com/cwhitlock-NOAA/custom_spack.git
+     branch: main
+     destination: $SPACK_ROOT/custom_repo
